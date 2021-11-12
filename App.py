@@ -15,17 +15,17 @@ if btn:
         news1 = scrapNDTV()
         col1,col2=st.columns(2)
         for newsrow in news1:
-
+            col2.markdown(f"![alt text]({newsrow['image']})")
             col2.write(newsrow['heading'])
             col2.write(newsrow['summary'])
-            col2.write(newsrow['image'])
+            #col2.write(newsrow['image'])
 
     elif category == websites[1]:
         news1 = scrapIndiatoday()
         col1,col2=st.columns(2)
         for newsrow in news1:
-            col1.markdown(f"![alt text]({newsrow['image']})")
+            col2.markdown(f"![alt text]({newsrow['image']})")
             col2.write(newsrow['heading'])
             col2.write(newsrow['summary'])
-            col2.write(newsrow['image'])
+            #col2.write(newsrow['image'])
 

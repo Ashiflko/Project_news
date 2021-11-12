@@ -43,9 +43,9 @@ def scrapIndiatoday():
     newsdata=[]
     for row in rows:
         details={}
-        details['heading']=row.find('a')
+        details['heading']=row.find('a').text
         details['image']=row.find('img').attrs.get('src')
-        details['summary']=row.find('p')
+        details['summary']=row.find('p').text
         
         newsdata.append(details)
 

@@ -50,3 +50,26 @@ def scrapIndiatoday():
         newsdata.append(details)
 
     return newsdata
+
+
+def scrapTimes():
+    data = requests.get('https://timesofindia.indiatimes.com/news')
+    if data.status_code == 200:
+        print('success')
+    elif data.status_code == 404:
+        print('page not found')
+    elif data.status_code == 500:
+        print('server error')
+
+    soup = BeautifulSoup(data.text)
+
+    rows = soup.find('ul',{'class': 'cvs_wdt'}).findAll('li')
+    newsdata = []
+    for row in rows:
+      detail={}
+      detail['heading']=row.find('a').text
+      detail['image']=row.find('img').attrs.get('src')
+      detail['summary']=row.find('span', { 'class' : 'w_desc' })
+      newsdata.append(detail)
+
+    return newsdata

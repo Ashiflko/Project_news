@@ -22,7 +22,7 @@ def scrapNDTV():
             detail['image'] = row.find('img').attrs.get('src')
             detail['summary'] = row.find('p',{'class':'newsCont'}).text
             newsdata.append(detail)
-
+``
     return newsdata
     
 

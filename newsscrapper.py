@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-from requests.api import request
+
 
 def scrapNDTV():
     data = requests.get('https://www.ndtv.com/top-stories')
@@ -19,10 +19,12 @@ def scrapNDTV():
         if 'adBg' not in row.attrs.get('class'):
             detail = {}
             detail['heading'] = row.find('h2',{'class':'newsHdng'}).text
+            detail['link'] = row.find('h2',{'class':'newsHdng'}).find('a').attrs.get('href')
             detail['image'] = row.find('img').attrs.get('src')
             detail['summary'] = row.find('p',{'class':'newsCont'}).text
+
             newsdata.append(detail)
-``
+
     return newsdata
     
 
@@ -44,7 +46,8 @@ def scrapIndiatoday():
     for row in rows:
         details={}
         details['heading']=row.find('a').text
-        details['image']=row.find('img').attrs.get('src')
+        details['link'] = row.find('div',{'class':'detail'}).find('a').attrs.get('href')
+        details['image'] = row.find('img').attrs.get('src')
         details['summary']=row.find('p').text
         
         newsdata.append(details)
@@ -63,13 +66,17 @@ def scrapTimes():
 
     soup = BeautifulSoup(data.text)
 
-    rows = soup.find('ul',{'class': 'cvs_wdt'}).findAll('li')
+    rows = soup.find('div', {'class' : 'listing4'}).find('ul',{'class': 'cvs_wdt clearfix'}).findAll('li')
     newsdata = []
     for row in rows:
-      detail={}
-      detail['heading']=row.find('a').text
-      detail['image']=row.find('img').attrs.get('src')
-      detail['summary']=row.find('span', { 'class' : 'w_desc' })
-      newsdata.append(detail)
+        if row.attrs.get('class') != 'prime':
+            detail={}
+            detail['heading'] = row.find('span',{'class':'w_tle'}).text
+            detail['image']=row.find('img').attrs.get('src')
+            #detail['link'] = row.find('span',{'class':'newsHdng'}).find('a').attrs.get('href')
+            detail['summary']=row.find('span', {'class' : 'w_desc'}).text
+            newsdata.append(detail)
 
     return newsdata
+
+  

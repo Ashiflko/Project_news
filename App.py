@@ -31,14 +31,4 @@ elif category == websites[1]:
         col2.write(newsrow['summary'])
         st.markdown("# ")
 
-elif category == websites[2]:
-    news1 = scrapNews18()
-    for newsrow in news1:
-        col1,col2=st.columns([4, 10])
-        col2.write(newsrow['heading'])
-        #col1.markdown(f"![alt text]({newsrow['image']})")
-        col2.write(newsrow['summary'])
-        #st.markdown("# ")
 
-
-       

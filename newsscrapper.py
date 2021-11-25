@@ -55,5 +55,3 @@ def scrapIndiatoday():
     return newsdata
 
 
-
-  
